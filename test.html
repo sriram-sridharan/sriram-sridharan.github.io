@@ -1,20 +1,31 @@
 <html>
+<head>
+<script type="text/javascript" src="http://wurfl.io/wurfl.js"></script>
+</head>
 <body>
+<div id="ua"></div><br/>
+<div id="wurfljs"></div><br/>
+<div id="dpr"></div><br/>
+<div><a href="http://ryanve.com/lab/dimensions/">Test screen dimensions</a></div><br/>
+<div><a href="http://ryanve.com/lab/resolution/">Test screen resolution and DPR</a></div>
 <script>
-	// Adapted from https://stackoverflow.com/questions/5063489/how-can-you-get-the-css-pixel-device-pixel-ratio/5063727
-	window.getDevicePixelRatio = function () {
-	var ratio = 0;
-	// To account for zoom, change to use deviceXDPI instead of systemXDPI
-	if (window.screen.systemXDPI !== undefined && window.screen.logicalXDPI !== undefined && window.screen.systemXDPI > window.screen.logicalXDPI) {
-		// Only allow for values > 1
-		ratio = window.screen.systemXDPI / window.screen.logicalXDPI;
-	}
-	else if (window.devicePixelRatio !== undefined) {
-		ratio = window.devicePixelRatio;
-	}
-	return ratio;
-};
-document.write(window.getDevicePixelRatio());
+    // Adapted from https://stackoverflow.com/questions/5063489/how-can-you-get-the-css-pixel-device-pixel-ratio/5063727
+    document.getElementById("ua").innerHTML = "User-Agent: " + navigator.userAgent;
+    document.getElementById("wurfljs").innerHTML = "Complete Device Name: " + WURFL.complete_device_name;
+    var dpr_ratio = dpr();
+    document.getElementById("dpr").innerHTML = "Device Pixel Ratio: " + dpr_ratio;
+    function dpr() {
+        var ratio = 0;
+        // To account for zoom, change to use deviceXDPI instead of systemXDPI
+        if (window.screen.systemXDPI !== undefined && window.screen.logicalXDPI !== undefined && window.screen.systemXDPI > window.screen.logicalXDPI) {
+            // Only allow for values > 1
+            ratio = window.screen.systemXDPI / window.screen.logicalXDPI;
+        }
+        else if (window.devicePixelRatio !== undefined) {
+            ratio = window.devicePixelRatio;
+        }
+        return ratio;
+    }
 </script>
 </body>
 </html>
