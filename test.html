@@ -1,6 +1,7 @@
 <html>
 <head>
 <script type="text/javascript" src="https://wurfl.io/wurfl.js"></script>
+<script src="http://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
 </head>
 <body>
 <div id="ua"></div><br/>
@@ -9,11 +10,12 @@
 <div><a href="http://ryanve.com/lab/dimensions/">Test screen dimensions</a></div><br/>
 <div><a href="http://ryanve.com/lab/resolution/">Test screen resolution and DPR</a></div>
 <script>
-    // Adapted from https://stackoverflow.com/questions/5063489/how-can-you-get-the-css-pixel-device-pixel-ratio/5063727
+	    // Adapted from https://stackoverflow.com/questions/5063489/how-can-you-get-the-css-pixel-device-pixel-ratio/5063727
     document.getElementById("ua").innerHTML = "User-Agent: " + navigator.userAgent;
     document.getElementById("wurfljs").innerHTML = "Complete Device Name: " + WURFL.complete_device_name;
     var dpr_ratio = dpr();
     document.getElementById("dpr").innerHTML = "Device Pixel Ratio: " + dpr_ratio;
+	googlesheets();
     function dpr() {
         var ratio = 0;
         // To account for zoom, change to use deviceXDPI instead of systemXDPI
@@ -26,6 +28,25 @@
         }
         return ratio;
     }
+	function googlesheets(){
+		var uaSheets = '?entry.711689093=' + navigator.userAgent;
+		var wurfljsSheets = '&entry.1956507390=' + WURFL.complete_device_name;
+		var dprSheets = '&entry.1289769321=' + dpr_ratio;
+		var baseURL = 'https://docs.google.com/forms/d/e/1FAIpQLSdEjOz9h7FaJkITFAtKrKNDdOnb17FxTZZlSBWHdmtUsQ6DFA/formResponse';
+		var submitRef = '&submit=631167486857955322';
+		var submitURL = (baseURL + uaSheets + wurfljsSheets +  dprSheets + submitRef);
+		console.log(submitURL);
+		$(this)[0].action=submitURL;
+		var xmlHttp = new XMLHttpRequest();
+		xmlHttp.onreadystatechange = function() {
+			if (xmlHttp.readyState == 4 && xmlHttp.status == 200) {
+				console.log(xmlHttp.responseText);
+			}
+		};	
+		xmlHttp.open("GET", submitURL, true); // true for asynchronous 
+		xmlHttp.send(null);
+    }
 </script>
+
 </body>
 </html>
