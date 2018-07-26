@@ -4,12 +4,8 @@
 </head>
 <body>
 <script>
-if (WURFL.is_mobile === true) {
-	document.write("is_mobile = true");
-} else {
-	document.write("is_mobile = false");
-}
+	document.writeln(WURFL.is_mobile?"This is a mobile device - is_mobile = true":"This is not a mobile device - is_mobile = false");
+	document.writeln(WURFL.complete_device_name + "'s form factor is " + WURFL.form_factor);
 </script>
-
 </body>
 </HTML>
