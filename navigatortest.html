@@ -1,0 +1,30 @@
+<html>
+<head>
+<script type="text/javascript" src="https://wurfl.io/wurfl.js"></script>
+</head>
+<body>
+<div><a href="test.html">DPR Test</a></div><br/>
+<div><a href="windowtest.html">Window Environment Test</a></div><br/>
+<div><a href="webgltest.html">Webgl Environment Test</a></div><br/>
+<div id="ua"></div><br/>
+<div id="wurfljs"></div><br/>
+<div id="navigator"></div><br/>
+<script>
+	    // Adapted from https://stackoverflow.com/questions/5063489/how-can-you-get-the-css-pixel-device-pixel-ratio/5063727
+    document.getElementById("ua").innerHTML = "User-Agent: " + navigator.userAgent;
+    document.getElementById("wurfljs").innerHTML = "Complete Device Name: " + WURFL.complete_device_name;
+    var navi = document.getElementById("navigator");
+    for(var property in navigator){ 
+    	var str = navigator[property];
+    	if(typeof(str) == 'object') {
+    		for(var subproperty in str){
+    			var substr = str[subproperty];
+    			navi.innerHTML += property+ "&nbsp;&nbsp;<em>"+substr+"</em><br />";
+    		}
+    	}
+    	navi.innerHTML += property+ "&nbsp;&nbsp;<em>"+str+"</em><br />";
+	} 
+</script>
+
+</body>
+</html>
